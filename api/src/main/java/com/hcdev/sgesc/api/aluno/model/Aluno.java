@@ -16,6 +16,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Range;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hcdev.sgesc.api.aluno.enums.DoencaPreExistenteEnum;
 import com.hcdev.sgesc.api.aluno.enums.MotivoMatriculaEnum;
 
@@ -31,23 +34,28 @@ public class Aluno {
 	  private Long id;
 
 	  @Size(min = 10, max = 70)
-	  @Column(length = 70, nullable = false)
+	  @Column(length = 70)
+	  @NotNull
 	  private String nome;
 	  
-	  @Column(name = "data_nascimento", nullable = false)
+	  @Column(name = "data_nascimento")
+	  @NotNull
 	  private LocalDate dataNascimento;
 	  
 	  @OneToOne(fetch = FetchType.LAZY)
 	  @JoinColumn(name = "fk_endereco_id")
+	  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	  private Endereco endereco;
 	  
 	  @OneToOne(fetch = FetchType.LAZY)
 	  @JoinColumn(name = "fk_telefone_id")
+	  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	  private Telefone telefone;
 	  
 	  @OneToOne(fetch = FetchType.LAZY)
 	  @JoinColumn(name = "fk_responsavel_id")
 	  @NotNull
+	  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	  private Responsavel responsavel;
 
 	  @Size(min = 10, max = 70)
@@ -75,9 +83,8 @@ public class Aluno {
 	  @Enumerated(EnumType.ORDINAL)
 	  private DoencaPreExistenteEnum doencaPreExistente;
 	  
-	  @Size(min = 1, max = 31)
+	  @Range(min = 1, max = 31)
 	  @Column(name = "dia_vencimento")
-	  private LocalDate diaVencimento;
-	
-
+	  private Long diaVencimento;
+	  
 }

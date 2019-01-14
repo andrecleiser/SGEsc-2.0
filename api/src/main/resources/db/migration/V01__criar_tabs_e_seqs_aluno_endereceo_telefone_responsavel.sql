@@ -44,7 +44,6 @@ CREATE TABLE endereco (
 
 ALTER SEQUENCE endereco_id_seq OWNED BY endereco.id;
 
-
 CREATE TABLE aluno (
   id integer NOT NULL DEFAULT nextval('aluno_id_seq'),
   nome varchar(70) NOT NULL,
